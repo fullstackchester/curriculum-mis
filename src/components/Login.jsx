@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { auth } from '../js/firebase';
-import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
@@ -16,18 +16,20 @@ export default function Login() {
 
     onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser)
-
+        setLoginError(user.uid)
+        // if (user) {
+        //     navigate('/dashboard')
+        // }
     })
 
 
     const login = () => {
-        // return setLoginError('taningamo gago ka')
 
         if (emailRef.current.value !== '' || passRef.current.value !== '') {
 
             signInWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
                 .then(() => {
-                    navigate('/')
+
                 })
                 .catch((e) => {
                     return setLoginError(e.message)
@@ -36,7 +38,6 @@ export default function Login() {
             return emailRef.current.value === null ? setLoginError('Enter email address') : setLoginError('Enter password')
         }
     }
-
     return (
         <div className='w-full h-full flex justify-center items-center bg-slate-50'>
             <div className='w-[400px] h-2/4 bg-white border border-slate-100 shadow-lg flex flex-col rounded-lg px-10 py-6'
@@ -75,6 +76,7 @@ export default function Login() {
                     className='w-full outline-none bg-zinc-700 text-white text-sm rounded-md p-2 mt-4 poppins hover:text-cyan-300 hover:ring-1 hover:ring-cyan-300'>
                     Login
                 </button>
+
 
                 <div className='w-full poppins mt-5'>
                     <p className='text-sm font-normal text-center'>

@@ -1,35 +1,34 @@
 import React from 'react';
 import { useState, useRef } from 'react';
 import { auth } from '../js/firebase';
-import { createUserWithEmailAndPassword, onAuthStateChanged, AuthErrorCodes } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged, AuthErrorCodes, updateProfile } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 
 
 export default function Register() {
   document.title = 'Register'
+  const [registerName, setRegisterName] = useState('')
   const [registerEmail, setRegisterEmail] = useState('')
   const [registerPass, setRegisterPass] = useState('')
   const [registerConfPass, setRegisterConfPass] = useState('')
   const [registerError, setRegisterError] = useState('')
   const [user, setUser] = useState('')
-
-  const emailRef = useRef()
-  const passRef = useRef()
-  const confirmPassRef = useRef()
+  const [loading, setLoading] = useState(false)
 
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser)
+    setRegisterError(user.displayName)
   })
 
 
   const clickME = () => {
 
-    if (emailRef.current.value === '' || passRef.current.value === '' || confirmPassRef.current.value === '') {
+    if (registerName === '' || registerEmail === '' || registerPass === '' || registerConfPass === '') {
       return setRegisterError('Fill up the missing field')
     } else {
 
-      if (passRef.current.value === confirmPassRef.current.value) {
+      if (registerPass === registerConfPass) {
         CreateAcc()
       } else {
         return setRegisterError('Passwords do not match')
@@ -39,13 +38,17 @@ export default function Register() {
 
 
   const CreateAcc = () => {
+    setLoading(true)
     createUserWithEmailAndPassword(auth, registerEmail, registerPass)
-      .then((account) => {
-        return setRegisterError(user.uid)
+      .then(() => {
+
       })
       .catch((e) => {
         return setRegisterError(e.message)
       })
+
+
+    setLoading(false)
   }
 
 
@@ -73,7 +76,15 @@ export default function Register() {
 
         <input
           type='text'
-          ref={emailRef}
+          onChange={(event) => {
+            setRegisterName(event.target.value)
+          }}
+          className='w-full p-2 border border-slate-200 bg-slate-50 rounded-md text-zinc-700 font-medium outline-none text-sm mt-5 poppins focus:ring-1 focus:ring-cyan-300'
+          placeholder='Administrator Name'></input>
+
+        <input
+          type='text'
+          // ref={emailRef}
           onChange={(event) => {
             setRegisterEmail(event.target.value)
           }}
@@ -82,7 +93,7 @@ export default function Register() {
 
         <input
           type='password'
-          ref={passRef}
+          // ref={passRef}
           onChange={(event) => {
             setRegisterPass(event.target.value)
           }}
@@ -91,7 +102,7 @@ export default function Register() {
 
         <input
           type='password'
-          ref={confirmPassRef}
+          // ref={confirmPassRef}
           onChange={(event) => {
             setRegisterConfPass(event.target.value)
           }}
@@ -108,6 +119,7 @@ export default function Register() {
         <button
           type='submit'
           onClick={clickME}
+          disabled={loading}
           className='w-full outline-none bg-zinc-700 text-white text-sm rounded-md p-2 mt-4 poppins'>
           Create account
         </button>
@@ -117,7 +129,7 @@ export default function Register() {
           <p className='text-sm font-normal text-center'>
             Already have an account?
 
-            <Link to='/login'>
+            <Link to='/'>
               <span className='ml-2 font-semibold text-cyan-500 cursor-pointer'>
                 Login
               </span>

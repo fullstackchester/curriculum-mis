@@ -2,8 +2,9 @@ import React from 'react';
 import Login from './components/Login';
 import Register from './components/Register';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Main from './components/Main';
-
+import Dashboard from './components/pages/Dashboard';
+import Curriculum from './components/pages/Curriculum';
+import UserProfile from './components/pages/UserProfile';
 
 function App() {
   return (
@@ -11,13 +12,13 @@ function App() {
       {/* <Register /> */}
       <Router>
         <Routes>
-          <Route path='/login' element={<Login />} />
+          <Route exact path='/' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route exact path='/' element={ <Main /> } />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/curriculum' element={<Curriculum />} />
+          <Route path='/user_profile' element={<UserProfile />} />
         </Routes>
       </Router>
-
-
     </div>
   );
 }
