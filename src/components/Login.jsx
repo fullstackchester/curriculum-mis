@@ -1,95 +1,98 @@
-import React, { useState, useRef } from 'react';
-import { auth } from '../js/firebase';
-import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import React, { useState } from 'react';
+import { auth } from '../Firebase/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
+import '../css/input.css';
 
 export default function Login() {
 
+
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
-    const [loginError, setLoginError] = useState('')
-    const [user, setUser] = useState('')
+    const [error, setError] = useState('')
+
     const navigate = useNavigate()
 
-    const emailRef = useRef()
-    const passRef = useRef()
-
-    onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser)
-        setLoginError(user.uid)
-        // if (user) {
-        //     navigate('/dashboard')
-        // }
-    })
+    // check if input are empty
+    const isEmpty = string => string === ''
 
 
-    const login = () => {
-
-        if (emailRef.current.value !== '' || passRef.current.value !== '') {
-
-            signInWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
+    function handleSubmit(e) {
+        e.preventDefault()
+        if (isEmpty(email) || isEmpty(pass)) {
+            return setError('Missing email or password')
+        } else {
+            signInWithEmailAndPassword(auth, email, pass)
                 .then(() => {
-
+                    navigate('/dashboard')
                 })
                 .catch((e) => {
-                    return setLoginError(e.message)
+                    setError(e.code)
                 })
-        } else {
-            return emailRef.current.value === null ? setLoginError('Enter email address') : setLoginError('Enter password')
         }
     }
+
+
+
     return (
-        <div className='w-full h-full flex justify-center items-center bg-slate-50'>
-            <div className='w-[400px] h-2/4 bg-white border border-slate-100 shadow-lg flex flex-col rounded-lg px-10 py-6'
-                spellCheck='false'>
-                <div className='w-full h-10 flex flex-row'>
-                    <img
-                        src='logo192.png'
-                        className='h-8 w-auto' />
-                    <span className='text-2xl ml-2 font-semibold poppins text-zinc-700'>
-                        Login
-                    </span>
-                </div>
-
-                <input
-                    type='text'
-                    ref={emailRef}
-                    className='w-full p-2 border border-slate-200 bg-slate-50 rounded-md text-zinc-700 font-medium outline-none text-sm mt-5 poppins focus:ring-1 focus:ring-cyan-300'
-                    placeholder='Email'></input>
-
-                <input
-                    type='password'
-                    ref={passRef}
-                    className='w-full p-2 border border-slate-200 bg-slate-50 rounded-md text-zinc-700 font-medium outline-none text-sm mt-5 poppins focus:ring-1 focus:ring-cyan-300'
-                    placeholder='Password'></input>
-
-                <div className='w-full h-7 p-1 mt-3'>
-                    <p
-                        className='w-full h-full text-xs font-medium text-red-500 text-right poppins'>
-                        {loginError}
-                    </p>
-                </div>
-
-                <button
-                    type='submit'
-                    onClick={login}
-                    className='w-full outline-none bg-zinc-700 text-white text-sm rounded-md p-2 mt-4 poppins hover:text-cyan-300 hover:ring-1 hover:ring-cyan-300'>
-                    Login
-                </button>
+        <div className='w-full h-screen flex justify-center items-center'>
 
 
-                <div className='w-full poppins mt-5'>
-                    <p className='text-sm font-normal text-center'>
-                        Don't have an account?
-                        <Link to='/register'>
-                            <span className='ml-2 font-semibold text-cyan-500 cursor-pointer'>
-                                Register
-                            </span>
-                        </Link>
+            <div className='w-[22rem] h-auto py-5 px-8 bg-slate-50/30 border border-zinc-200/50 rounded-md shadow-lg flex flex-col poppins '>
+                <p className='font-medium text-2xl text-center text-zinc-700 mb-10'>Login</p>
+                <form
+                    onSubmit={handleSubmit}
+                    className='flex flex-col poppins mb-5'
+                    autoComplete='false'
+                    spellCheck='false'>
 
-                    </p>
-                </div>
+                    <label
+                        htmlFor='email'
+                        className='text-sm text-zinc-600 font-medium poppins'>Email</label>
+                    <input
+                        onChange={(event) => {
+                            setEmail(event.target.value)
+                        }}
+                        type='text'
+                        name='email'
+                        placeholder='example@email.com'
+                        className='w-full h-auto text-sm poppins border border-zinc-300 p-3 outline-none rounded-md focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 mb-5 bg-transparent' />
+                    <label
+                        htmlFor='password'
+                        className='text-sm text-zinc-600 font-medium poppins'>Password</label>
+                    <input
+                        onChange={(event) => {
+                            setPass(event.target.value)
+                        }}
+                        type='password'
+                        name='password'
+                        placeholder='min. 6 characters'
+                        className='w-full h-auto text-sm poppins border border-zinc-300 p-3 outline-none rounded-md focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 mb-5 bg-transparent' />
+
+                    <p className='text-right text-sm text-red-600 poppins mb-5'>{error}</p>
+
+                    <input
+                        type='submit'
+                        value='Login'
+                        className='w-full h-auto p-2 border border-cyan-900 bg-cyan-900 rounded-md outline-none text-white text-sm cursor-pointer' />
+
+                </form>
+
+                <p className='text-sm font-medium text-center text-zinc-700'>Don't have an account?
+                    <Link to='/register'>
+                        <span className='font-semibold text-cyan-500 cursor-pointer hover:underline ml-1'>Register</span>
+                    </Link>
+
+                </p>
+
             </div>
+
+
+
+
+
+
+
         </div>
     )
 }

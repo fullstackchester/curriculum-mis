@@ -1,143 +1,134 @@
-import React from 'react';
-import { useState, useRef } from 'react';
-import { auth } from '../js/firebase';
-import { createUserWithEmailAndPassword, onAuthStateChanged, AuthErrorCodes, updateProfile } from 'firebase/auth';
-import { Link } from 'react-router-dom';
-
+import React from 'react'
+import { useState } from 'react'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { auth } from '../Firebase/firebase'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../Firebase/AuthContext'
 
 export default function Register() {
-  document.title = 'Register'
-  const [registerName, setRegisterName] = useState('')
-  const [registerEmail, setRegisterEmail] = useState('')
-  const [registerPass, setRegisterPass] = useState('')
-  const [registerConfPass, setRegisterConfPass] = useState('')
-  const [registerError, setRegisterError] = useState('')
-  const [user, setUser] = useState('')
-  const [loading, setLoading] = useState(false)
 
 
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser)
-    setRegisterError(user.displayName)
-  })
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [pass, setPass] = useState('')
+  const [confirmPass, setConfirmPass] = useState('')
+  const [isCreated, setIsCreated] = useState(false)
+  const [error, setError] = useState('')
 
+  const [loading, setLoading] = useState()
 
-  const clickME = () => {
+  const { currentUser } = useAuth()
 
-    if (registerName === '' || registerEmail === '' || registerPass === '' || registerConfPass === '') {
-      return setRegisterError('Fill up the missing field')
+  const navigate = useNavigate()
+
+  // check if input are empty
+  const isEmpty = string => string === ''
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+
+    if (isEmpty(name) || isEmpty(email) || isEmpty(pass) || isEmpty(confirmPass)) {
+      return setError('Fill up the required fields')
     } else {
+      if (pass === confirmPass) {
 
-      if (registerPass === registerConfPass) {
-        CreateAcc()
+        setError('')
+        setLoading(true)
+        await createUserWithEmailAndPassword(auth, email, pass)
+          .then(() => {
+            // auth created
+          })
+          .catch((err) => setError(err.code))
+
+
+        updateProfile(auth.currentUser, {
+          displayName: name,
+          photoURL: ''
+        }).then(() => navigate('/dashboard'))
+          .catch((err) => setError(err.code))
+
+
+        setLoading(false)
+
       } else {
-        return setRegisterError('Passwords do not match')
+        return setError('Passwords dont match')
       }
     }
   }
 
-
-  const CreateAcc = () => {
-    setLoading(true)
-    createUserWithEmailAndPassword(auth, registerEmail, registerPass)
-      .then(() => {
-
-      })
-      .catch((e) => {
-        return setRegisterError(e.message)
-      })
-
-
-    setLoading(false)
-  }
-
-
-  // create a function that converts the error code into readable message
-
-  const errorMsg = (code) => {
-    return ('tanga')
-  }
-
-
   return (
-    <div className='w-full h-full flex justify-center items-center bg-slate-50'>
-      <div
-        className='w-[400px] h-auto bg-white border border-slate-100 shadow-lg flex flex-col rounded-lg px-10 py-6'
-        spellCheck='false'>
+    <div className='w-full h-screen flex justify-center items-center'>
+      <div className='w-[22rem] h-auto py-5 px-8 bg-slate-50/30 border border-zinc-200/50 rounded-md shadow-lg flex flex-col poppins '>
+        <p className='font-medium text-2xl text-center text-zinc-700 mb-10'>Register</p>
+        <form
+          onSubmit={handleSubmit}
+          className='flex flex-col poppins mb-5'
+          autoComplete='false'
+          spellCheck='false'>
 
-        <div className='w-full h-10 flex flex-row'>
-          <img
-            src='logo192.png'
-            className='h-8 w-auto' />
-          <span className='text-2xl ml-2 font-semibold poppins text-zinc-700'>
-            Register
-          </span>
-        </div>
+          <label
+            htmlFor='name'
+            className='text-sm text-zinc-600 font-medium poppins'>Display name *</label>
+          <input
+            onChange={(event) => {
+              setName(event.target.value)
+            }}
+            type='text'
+            name='name'
+            placeholder='e.g. John Smith'
+            className='w-full h-auto text-sm poppins border border-zinc-300 p-3 outline-none rounded-md focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 mb-5 bg-transparent' />
 
-        <input
-          type='text'
-          onChange={(event) => {
-            setRegisterName(event.target.value)
-          }}
-          className='w-full p-2 border border-slate-200 bg-slate-50 rounded-md text-zinc-700 font-medium outline-none text-sm mt-5 poppins focus:ring-1 focus:ring-cyan-300'
-          placeholder='Administrator Name'></input>
+          <label
+            htmlFor='email'
+            className='text-sm text-zinc-600 font-medium poppins'>Email *</label>
+          <input
+            onChange={(event) => {
+              setEmail(event.target.value)
+            }}
+            type='text'
+            name='email'
+            placeholder='example@email.com'
+            className='w-full h-auto text-sm poppins border border-zinc-300 p-3 outline-none rounded-md focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 mb-5 bg-transparent' />
 
-        <input
-          type='text'
-          // ref={emailRef}
-          onChange={(event) => {
-            setRegisterEmail(event.target.value)
-          }}
-          className='w-full p-2 border border-slate-200 bg-slate-50 rounded-md text-zinc-700 font-medium outline-none text-sm mt-5 poppins focus:ring-1 focus:ring-cyan-300'
-          placeholder='Email'></input>
+          <label
+            htmlFor='password'
+            className='text-sm text-zinc-600 font-medium poppins'>Password *</label>
+          <input
+            onChange={(event) => {
+              setPass(event.target.value)
+            }}
+            type='password'
+            name='password'
+            placeholder='min. 6 characters'
+            className='w-full h-auto text-sm poppins border border-zinc-300 p-3 outline-none rounded-md focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 mb-5 bg-transparent' />
 
-        <input
-          type='password'
-          // ref={passRef}
-          onChange={(event) => {
-            setRegisterPass(event.target.value)
-          }}
-          className='w-full p-2 border border-slate-200 bg-slate-50 rounded-md text-zinc-700 font-medium outline-none text-sm mt-5 poppins focus:ring-1 focus:ring-cyan-300'
-          placeholder='Password'></input>
+          <label
+            htmlFor='confirm-password'
+            className='text-sm text-zinc-600 font-medium poppins'>Confirm password *</label>
+          <input
+            onChange={(event) => {
+              setConfirmPass(event.target.value)
+            }}
+            type='password'
+            name='confirm-password'
+            placeholder='min. 6 characters'
+            className='w-full h-auto text-sm poppins border border-zinc-300 p-3 outline-none rounded-md focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 mb-5 bg-transparent' />
 
-        <input
-          type='password'
-          // ref={confirmPassRef}
-          onChange={(event) => {
-            setRegisterConfPass(event.target.value)
-          }}
-          className='w-full p-2 border border-slate-200 bg-slate-50 rounded-md text-zinc-700 font-medium outline-none text-sm mt-5 poppins focus:ring-1 focus:ring-cyan-300'
-          placeholder='Confirm password'></input>
+          <p className='text-right text-sm text-red-600 poppins mb-5'>{error}</p>
 
-        <div className='w-full h-7 p-1 mt-3'>
-          <p
-            className='w-full h-full text-xs font-medium text-red-500 text-right poppins'>
-            {registerError}
-          </p>
-        </div>
+          <input
+            type='submit'
+            value='Create account'
+            disabled={loading}
+            className='w-full h-auto p-2 border border-cyan-900 bg-cyan-900 rounded-md outline-none text-white text-sm cursor-pointer' />
 
-        <button
-          type='submit'
-          onClick={clickME}
-          disabled={loading}
-          className='w-full outline-none bg-zinc-700 text-white text-sm rounded-md p-2 mt-4 poppins'>
-          Create account
-        </button>
+        </form>
+        <p className='text-sm font-medium text-center text-zinc-700'>Alreay have an account?
+          <Link to='/'>
+            <span className='font-semibold text-cyan-500 cursor-pointer hover:underline ml-1'>Login</span>
+          </Link>
 
-
-        <div className='w-full poppins mt-5'>
-          <p className='text-sm font-normal text-center'>
-            Already have an account?
-
-            <Link to='/'>
-              <span className='ml-2 font-semibold text-cyan-500 cursor-pointer'>
-                Login
-              </span>
-            </Link>
-
-          </p>
-        </div>
-
+        </p>
       </div>
     </div>
   )

@@ -2,30 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
 
-    .forms {
-        @apply p-2 ;
-    }
-    .input-text, .input-pass {
-      @apply border border-slate-300 outline-none p-2 rounded-md text-sm focus:border-sky-300 focus:ring-1 focus:ring-sky-200;
-    }
-
-    .btn-primary {
-        @apply p-2;
-    }
-
-    .base-div {
-        @apply h-full w-full flex flex-row bg-gray-100;
-    }
-
-    .panel-div {
-        @apply w-full h-full bg-white rounded-md border border-slate-200 shadow-md p-3;
-    }
-    .input-submit {
-        @apply p-2 rounded-md bg-zinc-700 text-white text-sm cursor-pointer hover:text-cyan-300 outline-none font-light;
-    }
-    button {
-        @apply outline-none;
-    }
-  }
