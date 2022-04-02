@@ -1,5 +1,5 @@
 import React from 'react'
-import { IoBarChart, IoSchool, IoPeople } from 'react-icons/io5';
+import { IoBarChart, IoSchool, IoPeople, IoFileTray, IoBook } from 'react-icons/io5';
 export const SidebarData = [
     {
         title: 'Dashboard',
@@ -15,5 +15,15 @@ export const SidebarData = [
         title: 'Faculty',
         icon: <IoPeople />,
         link: '/faculty',
+    },
+    {
+        title: 'Files',
+        icon: <IoFileTray />,
+        link: '/files',
+    },
+    {
+        title: 'Subjects',
+        icon: <IoBook />,
+        link: '/subject',
     },
 ]

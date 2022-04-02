@@ -9,6 +9,8 @@ import Curriculum from './pages/Curriculum';
 import './css/index.css';
 import { AuthProvider } from './Firebase/AuthContext';
 import Faculty from './pages/Faculty';
+import File from './pages/File';
+import Subjects from './pages/Subjects';
 
 function App() {
 
@@ -17,11 +19,15 @@ function App() {
   const ComposedUserProfile = Layout(UserProfile)
   const ComposedCurriculum = Layout(Curriculum)
   const ComposedFaculty = Layout(Faculty)
+  const ComposedFile = Layout(File)
+
+  const ComposedSubject = Layout(Subjects)
+
 
   return (
 
     <AuthProvider>
-      <div className="w-full base-container bg-zinc-200/60">
+      <div className="w-full h-full base-container bg-zinc-200/60">
 
         <Router>
           <Routes>
@@ -31,6 +37,8 @@ function App() {
             <Route path='/user_profile' element={<ComposedUserProfile />} />
             <Route path='/curriculum' element={<ComposedCurriculum />} />
             <Route path='/faculty' element={<ComposedFaculty />} />
+            <Route path='/files' element={<ComposedFile />} />
+            <Route path='/subject' element={<ComposedSubject />} />
           </Routes>
         </Router>
       </div>
