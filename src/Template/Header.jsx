@@ -24,7 +24,7 @@ export default function Header(props) {
             <span
                 className='text-sm text-slate-900 poppins px-3 flex flex-row items-center'>
                 <IoChevronForward className='mr-3 text-cyan-300' />
-                <span>{'chester'}</span>
+                <span>{props.title}</span>
             </span>
 
             <div className='h-full w-auto flex flex-row poppins items-center'>

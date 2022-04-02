@@ -18,7 +18,7 @@ const Layout = (ComposedComponent) => () => (
                     className='text-xl text-white'>Curriculum</span>
             </div>
 
-            <Account />
+            <Account title='sample title' />
             <ul className='flex flex-col py-2'>
                 {SidebarData.map((val, key) => {
                     return (

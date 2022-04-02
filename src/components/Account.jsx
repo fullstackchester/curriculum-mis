@@ -18,7 +18,7 @@ export default function Account() {
                     {currentUser && currentUser.displayName}
                 </p>
                 <span
-                    className='text-cyan-300 text-xs font-light text-ellipsis'>
+                    className='text-slate-100/70 text-xs font-light text-ellipsis'>
                     {currentUser && currentUser.email}
                 </span>
 
