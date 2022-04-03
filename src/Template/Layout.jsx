@@ -1,8 +1,9 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
 import Account from '../components/Account'
-import { SidebarData } from './SidebarData';
-import Header from './Header';
+import { SidebarData } from './SidebarData'
+import Header from './Header'
+
 
 const Layout = (ComposedComponent) => () => (
 
@@ -18,7 +19,8 @@ const Layout = (ComposedComponent) => () => (
                     className='text-xl text-white'>Curriculum</span>
             </div>
 
-            <Account title='sample title' />
+            <Account />
+
             <ul className='flex flex-col py-2'>
                 {SidebarData.map((val, key) => {
                     return (

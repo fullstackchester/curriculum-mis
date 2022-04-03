@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { useAuth } from '../Firebase/AuthContext';
-import Avatar from './Avatar';
+import Avatar from './Avatar'
+
 
 export default function Account() {
 
@@ -21,7 +22,6 @@ export default function Account() {
                     className='text-slate-100/70 text-xs font-light text-ellipsis'>
                     {currentUser && currentUser.email}
                 </span>
-
                 <p
                     className='text-xs text-white mt-2 flex flex-row
                      items-center cursor-pointer hover:underline'>

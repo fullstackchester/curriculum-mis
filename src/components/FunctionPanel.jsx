@@ -9,22 +9,22 @@ export default function FunctionPanel(props) {
         {
             title: 'Add',
             icon: <IoAdd />,
-            function: props.add
+            function: props.add,
         },
         {
             title: 'Modify',
             icon: <IoPencil />,
-            function: props.modify
+            function: props.modify,
         },
         {
             title: 'Delete',
             icon: <IoRemove />,
-            function: props.delete
+            function: props.delete,
         },
 
     ]
     return (
-        <div className='w-full h-10 bg-zinc-800 rounded-sm sticky top-14 flex justify-end shadow-sm'>
+        <div className='w-[90%] h-10 bg-zinc-800 rounded-sm sticky top-14 flex justify-end shadow-sm'>
             <div className='h-full w-fit'>
                 <ul className='h-full w-60 flex flex-row justify-evenly items-center text-xs font-medium poppins'>
                     {headerData.map((val, key) => {
@@ -42,6 +42,7 @@ export default function FunctionPanel(props) {
                 </ul>
 
             </div>
+            
 
         </div>
     )
