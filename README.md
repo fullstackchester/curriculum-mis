@@ -71,3 +71,30 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### Extensions
+
+Name: JavaScript (ES6) code snippets
+Id: xabikos.JavaScriptSnippets
+Description: Code snippets for JavaScript in ES6 syntax
+Version: 1.8.0
+Publisher: charalampos karypidis
+VS Marketplace Link: (https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets)
+
+Name: Babel JavaScript
+Id: mgmcdermott.vscode-language-babel
+Description: VSCode syntax highlighting for today's JavaScript
+Version: 0.0.36
+Publisher: Michael McDermott
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=mgmcdermott.vscode-language-babel
+
+Name: JS JSX Snippets
+Id: skyran.js-jsx-snippets
+Description: Extensions for React, Redux in JS with babel and ES7 syntax
+Version: 11.0.0
+Publisher: ran
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=skyran.js-jsx-snippets
+
+
+

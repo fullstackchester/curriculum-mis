@@ -10,7 +10,7 @@ export default function Input(props) {
                 type={props.type}
                 name={props.name}
                 placeholder={props.placeholder}
-                className='w-60 h-auto text-sm text-zinc-600 poppins border border-zinc-300 p-3 outline-none rounded-md
+                className='w-60 h-auto text-xs text-zinc-600 poppins border border-zinc-300 p-3 outline-none rounded-md
                  focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 mb-5 bg-transparent font-medium' />
 
         </div>

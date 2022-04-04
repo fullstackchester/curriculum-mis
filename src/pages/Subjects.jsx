@@ -16,7 +16,7 @@ export default function Subjects() {
     const closeModal = () => setModalOpen(false)
 
 
-    useEffect(() => {
+    useEffect(() => { // using useEffect to unsub the onValue once all the data was fetched
 
         const getSubjects = ref(database, 'subjects/')
         const unSub = onValue(getSubjects, (data) => data.exists() ? setSubjects(data.val()) : '')
@@ -24,7 +24,7 @@ export default function Subjects() {
         return unSub
     }, [])
 
-    // adding new subject
+    // function for adding new subject
     function AddSub(e) {
         e.preventDefault()
         alert('ADDING SUBJECT')
@@ -35,7 +35,10 @@ export default function Subjects() {
             <FunctionPanel
                 add={() => { modalOpen ? closeModal() : openModal() }}
             />
-            {modalOpen && <Modal modalOpen={modalOpen} handleClose={closeModal} children={<Add handleSubmit={AddSub} />} />}
+            {modalOpen && <Modal
+                modalOpen={modalOpen}
+                handleClose={closeModal}
+                children={<Add handleSubmit={AddSub} />} />}
 
 
             <div className='w-[90%] h-[auto] flex flex-col flex-wrap justify-start content-start py-2'>

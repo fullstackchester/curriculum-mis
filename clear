@@ -1,0 +1,23 @@
+[1mdiff --git a/README.md b/README.md[m
+[1mindex 418d64f..84bef90 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -71,3 +71,6 @@[m [mThis section has moved here: [https://facebook.github.io/create-react-app/docs/d[m
+ ### `npm run build` fails to minify[m
+ [m
+ This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)[m
+[32m+[m
+[32m+[m
+[32m+[m[32m### SAMPLE MODIFICATIONS[m
+[1mdiff --git a/src/Forms/Add.jsx b/src/Forms/Add.jsx[m
+[1mindex 7c14205..bb5b5d6 100644[m
+[1m--- a/src/Forms/Add.jsx[m
+[1m+++ b/src/Forms/Add.jsx[m
+[36m@@ -9,6 +9,7 @@[m [mfunction Add({ handleSubmit }) {[m
+ [m
+             <Input label='Course code' name='course-code' type='text' placeholder='e.g IT 101' />[m
+             <Input label='Subject name' name='subject-name' type='text' placeholder='e.g Object Oriented Programming' />[m
+[32m+[m[32m            <Input label='Subject name' name='subject-name' type='text' placeholder='e.g Object Oriented Programming' />[m
+ [m
+             <button[m
+                 type='submit'[m
