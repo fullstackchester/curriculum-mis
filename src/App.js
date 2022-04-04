@@ -26,7 +26,7 @@ function App() {
   return (
 
     <AuthProvider>
-      <div className="w-full h-full base-container bg-zinc-200/60">
+      <div className="w-full h-full base-container bg-zinc-200">
 
         <Router>
           <Routes>

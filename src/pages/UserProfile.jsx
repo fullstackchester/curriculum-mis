@@ -6,7 +6,9 @@ import { useAuth } from '../Firebase/AuthContext'
 
 export default function UserProfile() {
     const { currentUser } = useAuth()
-    return (    
+
+    console.log(currentUser)
+    return (
         <div className='w-full h-auto bg-white rounded-md flex flex-col p-4'>
 
             <div className='w-full h-auto flex flex-row'>

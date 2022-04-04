@@ -41,7 +41,7 @@ export default function Subjects() {
                 children={<Add handleSubmit={AddSub} />} />}
 
 
-            <div className='w-[90%] h-[auto] flex flex-col flex-wrap justify-start content-start py-2'>
+            <div className='w-full h-[auto] flex flex-col flex-wrap justify-start content-start py-2'>
                 {subjects.map((val, key) => {
                     return (
                         <div

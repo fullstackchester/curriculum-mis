@@ -1,11 +1,11 @@
 import React from 'react'
+import FunctionBar from '../components/FunctionBar'
 
 export default function Faculty() {
     return (
-        <>
-            <div className='w-1/2 h-60 bg-white rounded-md p-4'>
-
-            </div>
-        </>
+        <div className='w-full h-screen border border-slate-300 flex flex-col'>
+            <FunctionBar />
+            <div className='w-full h-10 bg-white'></div>
+        </div>
     )
 }

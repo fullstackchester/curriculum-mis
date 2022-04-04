@@ -38,7 +38,7 @@ export default function Login() {
         <div className='w-full h-screen flex justify-center items-center'>
 
 
-            <div className='w-[22rem] h-auto py-5 px-8 bg-slate-50/30 border border-zinc-200/50 rounded-md shadow-lg flex flex-col poppins '>
+            <div className='w-[22rem] h-auto py-5 px-8 bg-white border border-zinc-200/50 rounded-md shadow-lg flex flex-col poppins '>
                 <p className='font-medium text-2xl text-center text-zinc-700 mb-10'>Login</p>
                 <form
                     onSubmit={handleSubmit}
@@ -74,7 +74,7 @@ export default function Login() {
                     <input
                         type='submit'
                         value='Login'
-                        className='w-full h-auto p-2 border border-cyan-900 bg-cyan-900 rounded-md outline-none text-white text-sm cursor-pointer' />
+                        className='w-full h-auto p-2 border border-zinc-800 bg-zinc-800 rounded-md outline-none text-white text-sm cursor-pointer' />
 
                 </form>
 
