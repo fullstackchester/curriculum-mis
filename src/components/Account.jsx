@@ -1,35 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { useAuth } from '../Firebase/AuthContext';
-import Avatar from './Avatar'
 
 
 export default function Account() {
 
     const { currentUser } = useAuth()
 
+
     return (
-        <div className='w-full h-auto flex flex-row px-2 py-4'>
-            <Avatar
-                alt='admin-avatar'
-                src='img/Bust/peep-46.svg'
-                className='h-20 w-20 rounded-[100%] border border-slate-200 bg-zinc-700 object-cover' />
-            <div className='h-full w-[calc(100%-5rem)] ml-2 py-3 flex flex-col poppins '>
-                <p className='text-white text-md font-medium'>
-                    {currentUser && currentUser.displayName}
-                </p>
-                <span
-                    className='text-slate-100/70 text-xs font-light text-ellipsis'>
-                    {currentUser && currentUser.email}
-                </span>
-                <p
-                    className='text-xs text-white mt-2 flex flex-row
-                     items-center cursor-pointer hover:underline'>
-                    <Link to='/user_profile'>
-                        View profile
-                    </Link>
-                </p>
-            </div>
-        </div>
+        <>
+            <Link to='/profile'>
+                <div className='w-full h-auto flex flex-row px-2 py-4 poppins border-y border-white/40'>
+                    <img src={require('../img/peep-62.svg').default}
+                        className='rounded-[100%] w-16 h-16 border border-sky-800 bg-sky-800' />
+                    <div className='flex flex-col h-full ml-2 flex-grow'>
+                        <h4 className='text-white text-2xl font-light '>{currentUser && currentUser.displayName}</h4>
+                        <span className='text-white/70 text-xs font-light'>{currentUser && currentUser.email} </span>
+                    </div>
+
+                </div>
+            </Link>
+        </>
     )
 }

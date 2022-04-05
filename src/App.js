@@ -1,47 +1,48 @@
 import React from 'react';
 import Login from './components/Login';
-import Register from './components/Register';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Register from './components/Register'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import './css/index.css'
+import { AuthProvider } from './Firebase/AuthContext'
+import Dashboard from './pages/Dashboard'
+import Curriculum from './pages/Curriculum'
+import Profile from './pages/Profile/Profile'
+import EditProfile from './pages/Profile/EditProfile';
 import Layout from './Template/Layout';
-import Dashboard from './pages/Dashboard';
-import UserProfile from './pages/UserProfile';
-import Curriculum from './pages/Curriculum';
-import './css/index.css';
-import { AuthProvider } from './Firebase/AuthContext';
-import Faculty from './pages/Faculty';
-import File from './pages/File';
-import Subjects from './pages/Subjects';
+import Faculty from './pages/Faculty/Faculty';
+import UserProfile from './pages/Profile/UserProfile';
+
 
 function App() {
 
 
-  const ComposedDashboard = Layout(Dashboard)
-  const ComposedUserProfile = Layout(UserProfile)
-  const ComposedCurriculum = Layout(Curriculum)
-  const ComposedFaculty = Layout(Faculty)
-  const ComposedFile = Layout(File)
-
-  const ComposedSubject = Layout(Subjects)
-
   return (
 
-    <AuthProvider>
-      <div className="w-full h-full base-container bg-zinc-200/60">
 
-        <Router>
+    <div className="w-full h-full base-container bg-zinc-200/60">
+
+      <Router>
+        <AuthProvider>
           <Routes>
-            <Route exact path='/' element={<Login />} />
+            <Route exact path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
-            <Route path='/dashboard' element={<ComposedDashboard />} />
-            <Route path='/user_profile' element={<ComposedUserProfile />} />
-            <Route path='/curriculum' element={<ComposedCurriculum />} />
-            <Route path='/faculty' element={<ComposedFaculty />} />
-            <Route path='/files' element={<ComposedFile />} />
-            <Route path='/subject' element={<ComposedSubject />} />
+            <Route path='/' element={<Layout />} >
+              <Route index element={<Dashboard />} />
+              <Route path='/dashboard' element={<Dashboard />} />
+              <Route path='/curriculum' element={<Curriculum />} />
+
+              <Route path='/profile' element={<Profile />} >
+                <Route index element={<UserProfile />} />
+                <Route path='edit-profile' element={<EditProfile />} />
+              </Route>
+
+              <Route path='/faculty' element={<Faculty />} ></Route>
+            </Route>
+
           </Routes>
-        </Router>
-      </div>
-    </AuthProvider>
+        </AuthProvider>
+      </Router>
+    </div>
 
   );
 }

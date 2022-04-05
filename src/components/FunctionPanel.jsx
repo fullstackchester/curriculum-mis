@@ -35,12 +35,10 @@ export default function FunctionPanel(props) {
                                 className='w-auto h-full px-4 flex flex-row text-white font-light items-center cursor-pointer hover:bg-zinc-700'>
                                 {val.title}
                                 <span className='ml-1'> {val.icon} </span>
-
                             </li>
                         )
                     })}
                 </ul>
-
             </div>
             
 
